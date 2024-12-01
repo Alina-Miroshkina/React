@@ -1,0 +1,26 @@
+import { renderToString } from "react-dom/server";
+import { rectangleElement } from './Rectangle';
+
+const html = `
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Собачка в прямоугольнике</title>
+</head>
+<body>
+  ${renderToString(rectangleElement)}
+</body>
+</html>`
+
+Bun.serve({
+  port: 8080,
+  async fetch() {
+    return new Response(html, {
+      headers: {
+        "Content-Type": "text/html",
+      }
+    });
+  },
+});
