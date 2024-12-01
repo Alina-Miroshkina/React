@@ -1,0 +1,42 @@
+Что увидит пользователь:
+Изначально:
+
+Два абзаца с текстом:
+Первый абзац: Just React
+Второй абзац: 2022
+Кнопка с текстом: Change Content
+После нажатия на кнопку:
+
+Текст в абзацах изменится:
+Первый абзац: Welcome to Web
+Второй абзац: 1991
+решение : 
+------------------------------
+Вот полный код компонента App на React, который включает в себя использование хука useState для управления состоянием и функцию для изменения этого состояния:
+
+
+import React, { useState } from "react";
+
+function App() {
+  // Инициализация состояния с помощью хука useState
+  const [statep1, setStatep1] = useState("Just React");
+  const [statep2, setStatep2] = useState("2022");
+
+  // Функция для изменения состояния
+  function changeContent() {
+    setStatep1("Welcome to Web");
+    setStatep2("1991");
+  }
+
+  // Возвращение JSX
+  return (
+    <>
+      <p>{statep1}</p>
+      <p>{statep2}</p>
+      <button onClick={changeContent}>Change Content</button>
+    </>
+  );
+}
+
+// Экспорт компонента по умолчанию
+export default App;
