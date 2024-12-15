@@ -1,0 +1,150 @@
+Пристрелочная задача. 
+Делаем компонент, который будет отображать "копирайт" нашего проекта. Это должен быть параграф, с текстом "Учебный проект. Все права защищены. 2024". Для символа копирайта используем &#169;.
+Добавляем стили. Создаем CSS-модуль для стилей нашего компонента. Он должен занимать всю ширину, цвет текста - серый, выравнивание текста по центру, размер шрифта 14.
+Теперь попробуем создать компонент PersonalCard, который будет отвечать за отрисовку карточки с данными о разработчике. Карточка содержит:
+заголовок h3 с ФИО
+параграф с названием вашей квалификации (не скромничаем, но и не теряем связь с реальностью)
+параграф "О себе" - здесь напишем пару слов о том, какие мы классные.
+аватар (картинка - в идеале, с фото). Хорошо будет, чтобы картинка была круглая
+Стилизуем компонент. Нужно создать класс personalInfoContainer. Нужно сделать так, чтобы ФИО, квалификация и описание занимали бы половину ширины, а остальное занимала бы картинка. Также, нужно будет стилизовать и изображение - задать ему ширину 100% контейнера, и соотношение сторон 1:1 (aspect-ratio). Это все тоже нужно сделать в виде CSS-модуля.
+Делаем компонент Advantages. Он будет отрисовывать преимущества работы с нами. Это будет список наших "скиллов". Он содержит 3 скилла: Ответственность, Качество, Оперативность. Каждый скилл рисуем как div, в котором есть заголовок h6 с названием скилла, и параграф с кратким описанием (например, "Отвечаю за каждую строчку кода, клянусь честное слово!"). И стилизуем список. Делаем так, чтобы наши элементы списка размещались бы в одну строку.
+
+
+Файл Copyright.jsx
+import React from 'react';
+import styles from './Copyright.module.css';
+
+const Copyright = () => {
+  return <p className={styles.copyright}>Учебный проект. Все права защищены. &#169; 2024</p>;
+};
+
+export default Copyright;
+------------------
+Файл Copyright.module.css
+.copyright {
+  width: 100%;
+  color: gray;
+  text-align: center;
+  font-size: 14px;
+}
+
+---------------------
+2. Компонент PersonalCard...Файл PersonalCard.jsx
+import React from 'react';
+import styles from './PersonalCard.module.css';
+
+const PersonalCard = () => {
+  return (
+    <div className={styles.personalInfoContainer}>
+      <div className={styles.textContainer}>
+        <h3>Иван Иванов</h3>
+        <p>Senior Frontend Developer</p>
+        <p>О себе: Я опытный разработчик с большим опытом работы в IT-индустрии.</p>
+      </div>
+      <div className={styles.imageContainer}>
+        <img src="path/to/your/avatar.jpg" alt="Avatar" className={styles.avatar} />
+      </div>
+    </div>
+  );
+};
+
+export default PersonalCard;
+------------
+
+PersonalCard.module.css
+.personalInfoContainer {
+  display: flex;
+  align-items: center;
+}
+
+.textContainer {
+  width: 50%;
+  padding: 20px;
+}
+
+.imageContainer {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.avatar {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  object-fit: cover;
+}
+-----------------------
+ Advantages.jsx
+import React from 'react';
+import styles from './Advantages.module.css';
+
+const Advantages = () => {
+  return (
+    <div className={styles.advantagesContainer}>
+      <div className={styles.advantage}>
+        <h6>Ответственность</h6>
+        <p>Отвечаю за каждую строчку кода, клянусь честное слово!</p>
+      </div>
+      <div className={styles.advantage}>
+        <h6>Качество</h6>
+        <p>Высокое качество кода и продукта.</p>
+      </div>
+      <div className={styles.advantage}>
+        <h6>Оперативность</h6>
+        <p>Быстрое выполнение задач и решение проблем.</p>
+      </div>
+    </div>
+  );
+};
+
+export default Advantages;
+---------
+
+
+
+Advantages.module.css
+.advantagesContainer {
+  display: flex;
+  justify-content: space-around;
+  padding: 20px;
+}
+
+.advantage {
+  width: 30%;
+  text-align: center;
+}
+
+.advantage h6 {
+  margin-bottom: 10px;
+}
+--------------
+Файл App.js
+import React from 'react';
+import Copyright from './Copyright';
+import PersonalCard from './PersonalCard';
+import Advantages from './Advantages';
+
+const App = () => {
+  return (
+    <div>
+      <PersonalCard />
+      <Advantages />
+      <Copyright />
+    </div>
+  );
+};
+
+export default App;
+--------
+Файл index.js
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './App';
+import './index.css';
+
+ReactDOM.render(<App />, document.getElementById('root'));
+
+
+
