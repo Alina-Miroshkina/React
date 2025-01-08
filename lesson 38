@@ -1,0 +1,165 @@
+Шаг 1: Определим новый тип экшена (DROP_TODO)
+Создадим новый тип экшена для удаления дела в файле todoActions.js.
+
+
+// src/redux/actions/todoActions.js
+
+export const TODO_ACTIONS = {
+    ADD_TODO: 'TODOS/ADD_TODO',
+    DROP_TODO: 'TODOS/DROP_TODO' // Новый тип экшена для удаления дела
+};
+
+/**
+ * Функция, которая создает экшн для добавления нового дела
+ * @param {string} todo Название дела
+ * @returns Объект-экшн
+ */
+export const addTodo = (todo) => {
+    return {
+        type: TODO_ACTIONS.ADD_TODO,
+        payload: todo
+    };
+};
+
+/**
+ * Функция, которая создает экшн для удаления дела
+ * @param {string} id Идентификатор дела
+ * @returns Объект-экшн
+ */
+export const dropTodo = (id) => {
+    return {
+        type: TODO_ACTIONS.DROP_TODO,
+        payload: id
+    };
+};
+Шаг 2: Изменим редьюсер для обработки нового экшена
+Теперь изменим редьюсер, чтобы он мог обрабатывать экшен DROP_TODO.
+
+
+// src/redux/reducers/todoReducer.js
+
+const initialState = {
+    todos: []
+};
+
+const todoReducer = (state = initialState, action) => {
+    switch (action.type) {
+        case TODO_ACTIONS.ADD_TODO:
+            return {
+                ...state,
+                todos: [...state.todos, action.payload]
+            };
+        case TODO_ACTIONS.DROP_TODO:
+            return {
+                ...state,
+                todos: state.todos.filter(todo => todo.id !== action.payload)
+            };
+        default:
+            return state;
+    }
+};
+
+export default todoReducer;
+Шаг 3: Изменим компонент TodoList для рендеринга кнопок удаления
+Теперь изменим компонент TodoList, чтобы он рендерил кнопки удаления для каждого дела и обрабатывал их нажатия.
+
+
+// src/components/todos/TodoList.jsx
+
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { dropTodo } from '../../redux/actions/todoActions';
+
+export default function TodoList() {
+    const todos = useSelector(state => state.todos.data);
+    const dispatch = useDispatch();
+
+    const handleDropTodo = (id) => {
+        dispatch(dropTodo(id));
+    };
+
+    return (
+        <div>
+            {todos.map(el => (
+                <p key={el.id}>
+                    {el.text}
+                    <button onClick={() => handleDropTodo(el.id)}>Удалить</button>
+                </p>
+            ))}
+        </div>
+    );
+}
+Шаг 4: Обработка выбора на кнопку
+Мы уже обрабатываем нажатие на кнопку в компоненте TodoList с помощью функции handleDropTodo, которая отправляет экшен dropTodo с идентификатором дела.
+
+Полный код
+todoActions.js
+
+export const TODO_ACTIONS = {
+    ADD_TODO: 'TODOS/ADD_TODO',
+    DROP_TODO: 'TODOS/DROP_TODO'
+};
+
+export const addTodo = (todo) => {
+    return {
+        type: TODO_ACTIONS.ADD_TODO,
+        payload: todo
+    };
+};
+
+export const dropTodo = (id) => {
+    return {
+        type: TODO_ACTIONS.DROP_TODO,
+        payload: id
+    };
+};
+todoReducer.js
+
+const initialState = {
+    todos: []
+};
+
+const todoReducer = (state = initialState, action) => {
+    switch (action.type) {
+        case TODO_ACTIONS.ADD_TODO:
+            return {
+                ...state,
+                todos: [...state.todos, action.payload]
+            };
+        case TODO_ACTIONS.DROP_TODO:
+            return {
+                ...state,
+                todos: state.todos.filter(todo => todo.id !== action.payload)
+            };
+        default:
+            return state;
+    }
+};
+
+export default todoReducer;
+TodoList.jsx
+
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { dropTodo } from '../../redux/actions/todoActions';
+
+export default function TodoList() {
+    const todos = useSelector(state => state.todos.data);
+    const dispatch = useDispatch();
+
+    const handleDropTodo = (id) => {
+        dispatch(dropTodo(id));
+    };
+
+    return (
+        <div>
+            {todos.map(el => (
+                <p key={el.id}>
+                    {el.text}
+                    <button onClick={() => handleDropTodo(el.id)}>Удалить</button>
+                </p>
+            ))}
+        </div>
+    );
+}
+Теперь у вас есть полная реализация, которая позволяет добавлять и удалять дела из списка.
