@@ -1,0 +1,67 @@
+
+Теперь у вас есть базовый React-проект с функциональным компонентом MyInfo, который отображает ваше имя, краткий рассказ о себе и список мест, которые вы хотели бы посетить. Компонент также стилизован с помощью CSS.
+Итоговый код
+src/MyInfo.js
+
+import React from 'react';
+
+function MyInfo() {
+  return (
+    <div>
+      <h1>Ваше Имя</h1>
+      <p>
+        Краткий рассказ о себе. Например, я занимаюсь разработкой программного обеспечения уже более 5 лет. Люблю путешествовать и изучать новые технологии.
+      </p>
+      <ul>
+        <li>Париж, Франция</li>
+        <li>Токио, Япония</li>
+        <li>Нью-Йорк, США</li>
+      </ul>
+    </div>
+  );
+}
+
+export default MyInfo;
+src/App.js
+
+import React from 'react';
+import MyInfo from './MyInfo';
+import './App.css';
+
+function App() {
+  return (
+    <div className="App">
+      <MyInfo />
+    </div>
+  );
+}
+
+export default App;
+src/App.css
+
+.App {
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+
+h1 {
+  color: #333;
+}
+
+p {
+  font-size: 1.2em;
+  color: #666;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+ul li {
+  background: #f0f0f0;
+  margin: 5px 0;
+  padding: 10px;
+  border-radius: 5px;
+}
+Теперь у вас есть базовый React-проект с функциональным компонентом MyInfo, который отображает ваше имя, краткий рассказ о себе и список мест, которые вы хотели бы посетить. Компонент также стилизован с помощью CSS.
