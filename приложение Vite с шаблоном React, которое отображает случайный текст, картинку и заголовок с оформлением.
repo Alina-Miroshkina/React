@@ -1,0 +1,74 @@
+Теперь у вас должно быть работающее приложение Vite с шаблоном React, которое отображает случайный текст, картинку и заголовок с оформлением. Вы можете продолжать расширять и улучшать свое приложение, добавляя новые компоненты и функциональность. Если у вас возникнут дополнительные вопросы или проблемы, пожалуйста, дайте знать!
+Шаг 1: Проверка существования файла RandomContent.css
+Убедитесь, что файл RandomContent.css существует в директории src. Если файла нет, создайте его.
+
+Шаг 2: Создание файла RandomContent.css
+Если файл RandomContent.css отсутствует, создайте его в директории src и добавьте следующий код:
+
+
+/* src/RandomContent.css */
+.random-content {
+  text-align: center;
+  margin: 20px;
+}
+
+.random-content h1 {
+  font-size: 2em;
+  color: #333;
+}
+
+.random-content img {
+  margin: 20px 0;
+  border-radius: 10px;
+}
+
+.random-content p {
+  font-size: 1.2em;
+  color: #666;
+}
+Шаг 3: Проверка импорта в RandomContent.jsx
+Убедитесь, что файл RandomContent.css правильно импортируется в RandomContent.jsx. Откройте файл src/RandomContent.jsx и проверьте импорт:
+
+
+// src/RandomContent.jsx
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import './RandomContent.css';
+
+const RandomContent = () => {
+  const [text, setText] = useState('');
+  const [image, setImage] = useState('');
+  const [title, setTitle] = useState('');
+
+  useEffect(() => {
+    // Получение случайного текста
+    axios.get('https://baconipsum.com/api/?type=meat-and-filler')
+      .then(response => setText(response.data[0]))
+      .catch(error => console.error('Error fetching random text:', error));
+
+    // Получение случайной картинки
+    axios.get('https://picsum.photos/200/300')
+      .then(response => setImage(response.config.url))
+      .catch(error => console.error('Error fetching random image:', error));
+
+    // Получение случайного заголовка
+    axios.get('https://api.quotable.io/random')
+      .then(response => setTitle(response.data.content))
+      .catch(error => console.error('Error fetching random title:', error));
+  }, []);
+
+  return (
+    <div className="random-content">
+      <h1>{title}</h1>
+      <img src={image} alt="Random" />
+      <p>{text}</p>
+    </div>
+  );
+};
+
+export default RandomContent;
+Шаг 4: Запуск приложения
+Теперь попробуйте снова запустить приложение:
+
+
+npm run dev
